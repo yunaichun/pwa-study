@@ -1,0 +1,11 @@
+.DS_Store
+.git
+.vscode
+.idea
+*.log
+dist
+node_modules
+package-lock.json
+yarn.*
+test/__snapshots__/
+coverage
