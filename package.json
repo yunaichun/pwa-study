@@ -1,0 +1,19 @@
+{
+  "name": "pwa-study",
+  "version": "1.0.0",
+  "description": "学习 PWA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yunaichun/pwa-study.git"
+  },
+  "author": "yunaichun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yunaichun/pwa-study/issues"
+  },
+  "homepage": "https://github.com/yunaichun/pwa-study#readme"
+}
