@@ -5,6 +5,7 @@ const os = require('os');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 // === 动态获取 host || 也可在package.json中配置 HOST （--host 0.0.0.0)
 let HOSTS = [];
@@ -17,7 +18,7 @@ for (let key in os.networkInterfaces()) {
 }
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
 
   entry: './src/main.js',
   
@@ -64,7 +65,8 @@ module.exports = {
   devServer: {
     port: 2222,
     open: true,
-    host: HOSTS[0],
+    host: 'localhost',
+    // host: HOSTS[0],
     // hot: true, // 此处需去掉，不然修改 less 不会生效
     proxy: {
       '/': {
@@ -98,6 +100,9 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([
+      { from: './static/manifest.json', to: './manifest.json' },
+    ])
   ]
 }
