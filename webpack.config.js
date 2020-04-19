@@ -24,7 +24,7 @@ module.exports = {
   
   output: {
     path: path.resolve('dist'),
-    filename: `index.[hash:5].js`,
+    filename: `index.js`,
     publicPath: ''
   },
 
@@ -38,7 +38,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|svg|jpg|gif|eot|woff2?|ttf|TTF|svg)$/,
+        test: /\.(png|svg|jpg|gif|eot|woff2?|ttf|TTF|svg|json)$/,
         use: [
           {
             loader: 'url-loader',
@@ -86,7 +86,7 @@ module.exports = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "index.[hash:5].css"
+      filename: "index.css"
     }),
     new HtmlWebpackPlugin({
       filename: `index.html`,
@@ -104,7 +104,7 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: './static/manifest.json', to: './manifest.json' },
       { from: './static/image', to: './image' },
-      { from: './src/worker', to: './worker' },
+      { from: './src/worker', to: './' },
     ])
   ]
 }

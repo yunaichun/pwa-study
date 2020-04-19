@@ -16,7 +16,7 @@ class Index extends React.Component {
     window.addEventListener('load', () => {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
-            .register('worker/serviceworker.js')
+            .register('serviceworker.js')
             .then(registration => console.log(registration))
             .catch(err => console.log(err));
         }

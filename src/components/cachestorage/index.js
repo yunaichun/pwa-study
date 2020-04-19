@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './index.less'
 
 class Index extends React.Component {
   static defaultProps = {
@@ -16,7 +17,7 @@ class Index extends React.Component {
     window.addEventListener('load', () => {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
-            .register('worker/cachestorage.js')
+            .register('cachestorage.js')
             .then(registration => console.log(registration))
             .catch(err => console.log(err));
         }

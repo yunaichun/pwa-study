@@ -14,7 +14,7 @@ class Index extends React.Component {
   }
 
   componentDidMount() {
-    let worker = new Worker('worker/webworker.js');
+    let worker = new Worker('webworker.js');
     worker.addEventListener('message', e => {
       this.setState({ total: e.data.total })
     });
