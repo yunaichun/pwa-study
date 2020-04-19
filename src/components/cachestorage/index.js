@@ -21,7 +21,22 @@ class Index extends React.Component {
             .then(registration => console.log(registration))
             .catch(err => console.log(err));
         }
-    })
+    });
+
+    // == 添加推送
+    if (Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+    if (!navigator.onLine) {
+      new Notification('提示', { 
+        body: '您当前已经断网, 访问的是缓存资源'
+      });
+    }
+    window.addEventListener('online', () => {
+      new Notification('提示', {
+        body: '您已经联网, 请刷新访问最新数据'
+      });
+    });
   }
 
   testMethods() {}
