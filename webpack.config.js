@@ -60,10 +60,10 @@ module.exports = {
     ]
   },
 
-  devtool: process.env.NODE_ENV === 'production' ? '#nosources-source-map' : '#eval-source-map',
+  // devtool: process.env.NODE_ENV === 'production' ? '#nosources-source-map' : '#eval-source-map',
 
   devServer: {
-    port: 2222,
+    port: 8080,
     open: true,
     host: 'localhost',
     // host: HOSTS[0],
@@ -103,6 +103,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin([
       { from: './static/manifest.json', to: './manifest.json' },
+      { from: './static/image', to: './image' },
+      { from: './src/worker', to: './worker' },
     ])
   ]
 }

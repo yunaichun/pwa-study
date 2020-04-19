@@ -10,20 +10,25 @@ class Index extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      testState: {}
+      total: 0
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    let worker = new Worker('worker/webworker.js');
+    worker.addEventListener('message', e => {
+      this.setState({ total: e.data.total })
+    });
+  }
 
   testMethods() {}
 
   render () {
     const { testProps } = this.props;
-    const { testState } = this.state;
+    const { total } = this.state;
     return (
       <div>
-        111
+        1-100万累加的和为: {total}
       </div>
     );
   }
