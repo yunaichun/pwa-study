@@ -9,25 +9,27 @@ class Index extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      total: 0
     };
   }
 
   componentDidMount() {
-    let worker = new Worker('worker/webworker.js');
-    worker.addEventListener('message', e => {
-      this.setState({ total: e.data.total })
-    });
+    window.addEventListener('load', () => {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+            .register('worker/serviceworker.js')
+            .then(registration => console.log(registration))
+            .catch(err => console.log(err));
+        }
+    })
   }
 
   testMethods() {}
 
   render () {
     const { testProps } = this.props;
-    const { total } = this.state;
     return (
       <div>
-        1-100万累加的和为: {total}
+        111
       </div>
     );
   }
