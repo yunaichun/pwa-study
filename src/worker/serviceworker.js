@@ -2,15 +2,15 @@
 self.addEventListener('install', event => {
     console.log('install', event);
 
-    // == self.skipWaiting() : 会让 service worker 跳过等待，直接进入到 activate 状态
-    // == event.waitUtil() : 等待 self.skipWaiting() 结束后才进入到 activate 状态
+    // == self.skipWaiting(): Service Worker 一旦更新，需要等所有的终端都关闭之后，再重新打开页面才能激活新的 Service Worker，这个过程太复杂了
+    // == event.waitUtil(): 等待 self.skipWaiting() 结束后才进入到 activate 状态
     event.waitUntil(self.skipWaiting());
 });
 
 // == service worker 注册之后调用: 删除旧缓存
 self.addEventListener('activate', event => {
     console.log('activate', event);
-    // == 表示 service worker 激活后，立即获得执行权
+    // == 为了保证 Service Worker 激活之后能够马上作用于所有的终端，通常在激活 Service Worker 后，通过在其中调用 self.clients.claim() 方法控制未受控制的客户端
     event.waitUntil(self.clients.claim());
 });
 
