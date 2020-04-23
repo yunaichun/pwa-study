@@ -16,10 +16,18 @@ class Index extends React.Component {
   componentDidMount() {
     window.addEventListener('load', () => {
         if ('serviceWorker' in navigator) {
+          // 由于 127.0.0.1:8000 是所有测试 Demo 的 host
+          // 为了防止作用域污染，将安装前注销所有已生效的 Service Worker
+          navigator.serviceWorker.getRegistrations()
+          .then(regs => {
+            for (let reg of regs) {
+              reg.unregister()
+            }
             navigator.serviceWorker
             .register('cachestorage.js')
             .then(registration => console.log(registration))
             .catch(err => console.log(err));
+          })
         }
     });
 
