@@ -36,20 +36,27 @@ self.addEventListener('fetch', event => {
     console.log('fetch', event);
 
     const req = event.request;
-    console.log(22222222, req);
+    // == 只缓存同源的内容
+    const url = new URL(req.url);
+    if (url.origin !== self.origin) {
+        return;
+    }
+
     event.respondWith(networkFirst(req));
 });
 
 async function networkFirst(req) {
+    console.log(11111, req);
     // == 去缓存中读取
     const cache = await caches.open(CACHE_NAME);
     try {
         // == 先从网络读取最新的资源
         const fresh = await fetch(req);
-        cache.put(req, fresh);
+        console.log(22222, fresh);
+        // == 此处一定要添加 clone
+        cache.put(req, fresh.clone());
         return fresh;
     } catch(e) {
-        
         const cached = await cache.match(req);
         return cached;
     }
