@@ -12,7 +12,8 @@ self.addEventListener('install', async event => {
         '/image/start.png',
         '/manifest.json',
         '/index.js',
-        '/index.css'
+        '/index.css',
+        // '/api'
     ]);
 
     // == self.skipWaiting() : 会让 service worker 跳过等待，直接进入到 activate 状态
@@ -41,23 +42,35 @@ self.addEventListener('fetch', event => {
     if (url.origin !== self.origin) {
         return;
     }
-
-    event.respondWith(networkFirst(req));
+    // == 接口请求优先走网络，静态资源优先走缓存
+    if (req.url.includes('/api')) {
+        event.respondWith(networkFirst(req));
+    } else {
+        event.respondWith(cacheFirst(req));
+    }
 });
 
 async function networkFirst(req) {
-    console.log(11111, req);
-    // == 去缓存中读取
     const cache = await caches.open(CACHE_NAME);
     try {
-        // == 先从网络读取最新的资源
         const fresh = await fetch(req);
-        console.log(22222, fresh);
         // == 此处一定要添加 clone
         cache.put(req, fresh.clone());
         return fresh;
     } catch(e) {
         const cached = await cache.match(req);
         return cached;
+    }
+}
+
+async function cacheFirst(req) {
+    const cache = await caches.open(CACHE_NAME);
+    const cached = await cache.match(req);
+    if (cached) {
+        return cached
+    } else {
+        const fresh = await fetch(req);
+        cache.put(req, fresh.clone());
+        return fresh;
     }
 }
