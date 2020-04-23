@@ -41,13 +41,15 @@ self.addEventListener('fetch', event => {
 });
 
 async function networkFirst(req) {
+    // == 去缓存中读取
+    const cache = await caches.open(CACHE_NAME);
     try {
         // == 先从网络读取最新的资源
         const fresh = await fetch(req);
+        cache.put(req, fresh);
         return fresh;
     } catch(e) {
-        // == 去缓存中读取
-        const cache = await caches.open(CACHE_NAME);
+        
         const cached = await cache.match(req);
         return cached;
     }
