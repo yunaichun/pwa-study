@@ -15,7 +15,7 @@ npm run lint
 npm run test
 ```
 
-## 学习参考
+## 参考资料
 
 - [官方教程](https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp)
 - [视频教程](https://www.bilibili.com/video/BV1wt411E7QD?from=search&seid=4359254532906031342)
