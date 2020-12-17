@@ -2,7 +2,18 @@
 
 此项目是学习 PWA 的项目，记录学习的点滴，方便以后忘记可以从学习轨迹中迅速上手。
 
-可参考我的学习笔记: https://www.answera.top/hybird/pwa/
+## 如何开发
+
+```bash
+# 安装依赖
+npm ci
+
+# eslint 规范
+npm run lint
+
+# test 测试用例
+npm run test
+```
 
 ## 如何开发
 
@@ -16,6 +27,11 @@ npm run lint
 # test 测试用例
 npm run test
 ```
+
+## 学习笔记
+
+- PWA: https://www.answera.top/hybird/pwa/
+
 
 ## 参考资料
 
